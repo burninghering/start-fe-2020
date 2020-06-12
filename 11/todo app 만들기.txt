@@ -1,0 +1,115 @@
+todo app 
+배열로 데이터를 관리하는 웹앱임
+
+todo MVX, 자바스크립트 프레임워크
+오픈소스로 되게 많음
+
+저희는 아무런 라이브러리를 쓰지 않고 만들 것
+
+UI 소스는 다운 받고
+11폴더에 풀어넣고
+실습파일들을 src에 넣어주고
+터미널 열어서 npm init -y
+
+예전에 쓰던 package.json 에서 dependancy{}부분 가지고 와서
+방금 만들어진 json에 추가.
+
+추가 후 npm install
+
+이전에 했던 실습에서 
+webpack.config 도 가지고 와서 11폴더에 넣어줌
+
+예전에 쓰던 package.json 에서 webpack 부분 가지고 와서
+방금 만들어진 json에 추가.
+
+추가 후 npm install
+
+설정을 하는데 시간이 많이 들지만
+템플릿을 만들어 놓으면 복사해서 dependency에 기술해주면 되기 때문에 편하다
+
+예전에 쓰던 package.json 에서 scripts{} 부분 가지고 와서
+방금 만들어진 json에 추가.
+
+npm start
+
+webpack에서 entry: './src/index.js' 으로 수정
+
+index.html에서 todos.css를 못가져와서 에러가 나므로
+npm install --save-dev css-loader style-loader 설치
+
+webpack에 
+module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+추가
+
+템플릿화해서 다 불러온 다음에
+개발하기 전 초기 설정을 만들어 주는 것
+(교수님 코드 가져오니까 css가 입혀졌다.. 그냥 이 코드들을 11폴더에 넣는걸로..)
+
+
+--실습 시작--
+index.html)
+<ul><li>부분이 렌더링될 수 있도록
+<div id="result"></div> 추가
+
+<form class="new-task" id="input-form"> <- id를 주고
+<input
+            type="text"
+            name="text"
+            placeholder="할일을 입력하세요"
+            id="input" <- id 주고
+          />
+이 부분을 넘기는 작업을 할 것임
+
+
+import './todos.css'; 앗! 이부분을 안해줘서 내 코드에서 css가 안입혀졌나
+교수님 코드에도 없었는데.. 일단 pass
+
+index.js)
+const $inputForm = document.querySelector('#input-form');
+const $input = document.querySelector('#input');
+const $result = document.querySelector('#result'); 
+추가해줌
+
+console.log($inputForm);
+
+input 이벤트 추가
+$inputForm.addEventListener('submit', (event) => {
+ event.preventDefault(); //이벤트 막아줌
+
+  const text = $input.value;
+  console.log(text);
+  $input.value='';
+});
+});
+
+todo에 필요한 것 만들기
+const todoModel = {
+  id: '', //DB에 넣을 때
+  text: '', //todo에 필요한 text
+  isDone: false,
+};
+
+그리고 배열에 넣어야하니까 만든것 배열에 넣어주기
+const todos = [
+  {
+    id: '', //DB에 넣을 때
+    text: '', //todo에 필요한 text
+    isDone: false,
+  },
+];
+
+todos를 렌더링해서 그려주기
+const html = todos.map((todo, index) => {
+  return '<li><button class="delete">×</button><input type="checkbox" class="toggle-checked" /><span class="text">JS공부하기</span> </li>';
+}); 추가
+
+
+22:44
+
